@@ -3,9 +3,10 @@
 
 complete -c omf -f -d "Oh My Fish"
 
-set -l installed_themes (omf.packages.list --installed --theme)
+set -l installed_themes (omf.packages.list --installed --theme) (omf.themes.list.builtin)
 set -l installed_plugins (omf.packages.list --installed --plugin)
 set -l installed $installed_themes $installed_plugins
+
 for subcommand in "r rm remove" "c cd"
   complete -c omf -f -n "__fish_seen_subcommand_from $subcommand" -a "$installed_themes" -d theme
   complete -c omf -f -n "__fish_seen_subcommand_from $subcommand" -a "$installed_plugins" -d plugin
@@ -13,6 +14,7 @@ end
 
 set -l available_themes (omf.packages.list --available --theme)
 set -l available_plugins (omf.packages.list --available --plugin)
+
 for subcommand in "i install"
   complete -c omf -f -n "__fish_seen_subcommand_from $subcommand" -a "$available_themes" -d theme
   complete -c omf -f -n "__fish_seen_subcommand_from $subcommand" -a "$available_plugins" -d plugin
@@ -28,6 +30,7 @@ complete -c omf -f -a install  -n "__fish_use_subcommand" -d "Install one or mor
 complete -c omf -f -a theme    -n "__fish_use_subcommand" -d "List / Use themes"
 complete -c omf -f -a remove   -n "__fish_use_subcommand" -d "Remove a theme or package"
 complete -c omf -f -a update   -n "__fish_use_subcommand" -d "Update Oh My Fish"
+complete -c omf -f -a reload   -n "__fish_use_subcommand" -d "Reload Oh My Fish from scratch"
 complete -c omf -f -a cd       -n "__fish_use_subcommand" -d "Change directory to plugin/theme directory"
 complete -c omf -f -a new      -n "__fish_use_subcommand" -d "Create a new package from a template"
 complete -c omf -f -a search   -n "__fish_use_subcommand" -d "Search the database for a theme, package or both"
